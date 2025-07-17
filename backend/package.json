@@ -1,11 +1,10 @@
 {
   "name": "wishlist-backend",
   "version": "1.0.0",
+  "description": "",
   "main": "index.js",
-  "type": "module",
   "scripts": {
-    "start": "node index.js",
-    "dev": "nodemon index.js"
+    "start": "node index.js"
   },
   "dependencies": {
     "bootstrap": "^5.3.7",
