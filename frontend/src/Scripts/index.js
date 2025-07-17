@@ -6,7 +6,7 @@ function LoadDashboard() {
         var username = parseInt(userMail.indexOf("@"));
         $.ajax({
             method: "get",
-            url: `../../public/pages/user_dashboard.html`,
+            url: `public/pages/user_dashboard.html`,
             success: (response) => {
                 $("section").html(response);
 
@@ -34,7 +34,7 @@ function LoadDashboard() {
     } else {
         $.ajax({
             method: "get",
-            url: `../../public/pages/${page_name}`,
+            url: `public/pages/${page_name}`,
             success: (response) => {
                 $("section").html(response);
             }
@@ -50,7 +50,7 @@ function loadPage(page_name) {
     $.ajax({
 
         method: "get",
-        url: `../../public/pages/${page_name}`,
+        url: `public/pages/${page_name}`,
         success: (response => {
             $("section").html(response);
         })
