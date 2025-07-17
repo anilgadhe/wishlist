@@ -16,7 +16,7 @@ function LoadDashboard() {
                     url: `https://wishlist-backend-p49k.onrender.com/appointment/${$.cookie('userMail')}`,
                     success: (appointments => {
                         appointments.map(appointment => {
-                            $(`<div class="alert alert-success alert-dismissible col-12 col-sm-12 col-md-6 col-lg-4 mx-3" style="width:25rem;">
+                            $(`<div class="alert alert-success alert-dismissible col-12 col-sm-12 col-md-6 col-lg-4 mx-2" style="width:23rem;">
                                <h2>${appointment.title}</h2>
                                <p> ${appointment.description} </p>
                                <div class="bi bi-calendar"> ${appointment.date.slice(0, appointment.date.indexOf("T"))}</div>
