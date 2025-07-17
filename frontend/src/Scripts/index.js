@@ -13,7 +13,7 @@ function LoadDashboard() {
                 $("#lblUser").html(userMail.slice(0, username));
                 $.ajax({
                     method: 'get',
-                    url: `http://127.0.0.1:8080/appointment/${$.cookie('userMail')}`,
+                    url: `https://wishlist-backend-p49k.onrender.com/appointment/${$.cookie('userMail')}`,
                     success: (appointments => {
                         appointments.map(appointment => {
                             $(`<div class="alert alert-success alert-dismissible col-12 col-sm-12 col-md-6 col-lg-4 mx-3" style="width:25rem;">
@@ -81,7 +81,7 @@ $(() => {
 
         $.ajax({
             method: "post",
-            url: `http://localhost:8080/user/register`,
+            url: `https://wishlist-backend-p49k.onrender.com/user/register`,
             data: newUser,
             success: () => {
                 alert("User register successfully");
@@ -107,7 +107,7 @@ $(() => {
 
         $.ajax({
             method: "get",
-            url: `http://localhost:8080/user/${mail}`,
+            url: `https://wishlist-backend-p49k.onrender.com/user/${mail}`,
             success: (userDetails) => {
                 if (userDetails) {
                     if ($("#password").val() === userDetails.password) {
@@ -155,7 +155,7 @@ $(() => {
 
         $.ajax({
             method: "post",
-            url: `http://localhost:8080/appointment`,
+            url: `https://wishlist-backend-p49k.onrender.com/appointment`,
             data: appointment,
         })
         alert("successfully added")
@@ -174,7 +174,7 @@ $(() => {
         if (choice === true) {
             $.ajax({
                 method: "delete",
-                url: `http://localhost:8080/appointment/delete/${e.target.value}`,
+                url: `https://wishlist-backend-p49k.onrender.com/appointment/delete/${e.target.value}`,
             })
 
             alert("successfully deleted appointment");
@@ -189,7 +189,7 @@ $(() => {
 
         $.ajax({
             method: "get",
-            url: `http://localhost:8080/appointment/ap/${e.target.value}`,
+            url: `https://wishlist-backend-p49k.onrender.com/appointment/ap/${e.target.value}`,
             success: (appointment => {
                 $("#title").val(appointment.title);
                 $("#description").val(appointment.description);
@@ -221,7 +221,7 @@ $(() => {
 
         $.ajax({
             method: "put",
-            url: `http://localhost:8080/appointment/edit/${appointment._id}`,
+            url: `https://wishlist-backend-p49k.onrender.com/appointment/edit/${appointment._id}`,
             data: appointment,
             success: () => {
                 alert("Successfully updated appointment");
