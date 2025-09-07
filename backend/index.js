@@ -25,6 +25,10 @@ app.use(express.json());
 app.use("/user",userRouter);
 app.use("/appointment",appointmentRouter);
 
+app.use((req,res)=>{
+    res.status(404).write("Not Found path your serch for");
+})
+
 
 app.listen(PORT,()=>{
     console.log(`server is running on ${PORT}`);

@@ -110,13 +110,9 @@ $(() => {
             url: `https://wishlist-backend-p49k.onrender.com/user/${mail}`,
             success: (userDetails) => {
                 if (userDetails) {
-                    if ($("#password").val() === userDetails.password) {
                         $.cookie("userMail", $("#email").val());
                         localStorage.setItem("user_id", `${userDetails._id}`)
                         LoadDashboard();
-                    } else {
-                        alert("invalid password");
-                    }
                 } else {
                     alert(" user not found");
                 }

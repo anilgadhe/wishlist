@@ -1,5 +1,5 @@
 const User = require("../modules/user");
-
+const  bcrypt = require("bcrypt");
 
 
 async function resgisterUserOnPost(req, res) {
@@ -13,9 +13,11 @@ async function resgisterUserOnPost(req, res) {
             return res.status(400).json("user already exist");
         }
 
+        let hashedPassword = bcrypt.hash(password,10);
+
         const newUser = new User({
             user_name,
-            password,
+            password:hashedPassword,
             email,
             mobile
         })
@@ -33,18 +35,27 @@ async function resgisterUserOnPost(req, res) {
 
 
 const getUser = (async (req, res) => {
-    const { email } = req.params;
+    const { email ,password} = req.body;
+
     if (!email) {
         return res.status(400).json({ message: "undefined email" });
     }
 
     try {
         const user = await User.findOne({email});
+
+        
         if (!user) {
             return res.status(400).json({ message: "user is not identified" });
-        }
+        }else{
+           let  ismatching = await bcrypt.compare(password , user.password);
 
-        res.status(200).json(user);
+           if(!ismatching){
+            return res.status(400).json({message:"worng password"});
+           }
+           res.status(200).json(user);
+        }
+        
     } catch (error) {
         console.log(error);
         res.status(500).json({message:"user not found"})

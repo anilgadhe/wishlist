@@ -4,19 +4,19 @@
     -webkit-backdrop-filter: blur(10px);
     color: white;">
     <h2>update wish</h2>
-    <dl>
+    <dl >
         <dt>_Id</dt>
         <dd><input type="text" id="Id" class="form-control" readonly></dd>
         <dt>wish</dt>
-        <dd><input type="text" id="title" class="form-control"></dd>
+        <dd><input type="text" id="title" class="form-control" required></dd>
         <dt>Description</dt>
-        <dd><input type="text" id="description" class="form-control"></dd>
+        <dd><input type="text" id="description" class="form-control" required></dd>
         <dt>Date</dt>
-        <dd><input type="date" id="date" class="form-control"></dd>
+        <dd><input type="date" id="date" class="form-control" required></dd>
         <dt>email</dt>
-        <dd><input type="email" id="mail" class="form-control" readonly></dd>
+        <dd><input type="email" id="mail" class="form-control" readonly required></dd>
         <dt>user_id</dt>
-        <dd><input type="text" id="user_id" class="form-control" readonly></dd>
+        <dd><input type="text" id="user_id" class="form-control" readonly required></dd>
     </dl>
     <button class="btn btn-primary " id="btnSave">Save </button>
     <button id="btnEditCancel" class="btn btn-danger mx-2">Cancel</button>
