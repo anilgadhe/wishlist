@@ -1,66 +1,56 @@
 const User = require("../modules/user");
-const  bcrypt = require("bcrypt");
 
-
-async function resgisterUserOnPost(req, res) {
+// Register User
+ const registerUserOnPost = async(req, res)=> {
     const { user_name, password, mobile, email } = req.body;
 
     try {
-
         const existing = await User.findOne({ email });
-
         if (existing) {
-            return res.status(400).json("user already exist");
+            return res.status(400).json({ message: "User already exists" });
         }
-
-        let hashedPassword = bcrypt.hash(password,10);
 
         const newUser = new User({
             user_name,
-            password:hashedPassword,
+            password,  
             email,
             mobile
-        })
+        });
 
         await newUser.save();
-        res.status(201).json({ message: "user register successfully", user: newUser })
+        res.status(201).json({ message: "User registered successfully", user: newUser });
 
     } catch (err) {
         console.error("Error registering user:", err);
         res.status(500).json({ message: "Server error" });
     }
-
-
 }
 
+// Login User
+const loginUser = async (req, res) => {
+    const { email, password } = req.body;
 
-const getUser = (async (req, res) => {
-    const { email ,password} = req.body;
-
-    if (!email) {
-        return res.status(400).json({ message: "undefined email" });
+    if (!email || !password) {
+        return res.status(400).json({ message: "Email and password required" });
     }
 
     try {
-        const user = await User.findOne({email});
-
-        
+        const user = await User.findOne({ email });
         if (!user) {
-            return res.status(400).json({ message: "user is not identified" });
-        }else{
-           let  ismatching = await bcrypt.compare(password , user.password);
-
-           if(!ismatching){
-            return res.status(400).json({message:"worng password"});
-           }
-           res.status(200).json(user);
+            return res.status(404).json({ message: "User not found" });
         }
-        
+
+        // plain comparison
+        if (password !== user.password) {
+            return res.status(401).json({ message: "Invalid password" });
+        }
+
+        res.status(200).json(user);
+
     } catch (error) {
-        console.log(error);
-        res.status(500).json({message:"user not found"})
+        console.error(error);
+        res.status(500).json({ message: "Login failed" });
     }
-});
+};
 
-
-module.exports = { resgisterUserOnPost, getUser }
+module.exports = { registerUserOnPost, loginUser };

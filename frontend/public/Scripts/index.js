@@ -101,29 +101,24 @@ $(() => {
     });
 
 
-    $(document).on("click", "#btnLogin", () => {
+$(document).on("click", "#btnLogin", () => {
+    var mail = $("#email").val();
+    var password = $("#password").val();
 
-        var mail = $("#email").val();
-
-        $.ajax({
-            method: "get",
-            url: `https://wishlist-backend-p49k.onrender.com/user/${mail}`,
-            success: (userDetails) => {
-                if (userDetails) {
-                        $.cookie("userMail", $("#email").val());
-                        localStorage.setItem("user_id", `${userDetails._id}`)
-                        LoadDashboard();
-                } else {
-                    alert(" user not found");
-                }
-            },
-            error: (xhr) => {
-                alert("wrong credentials: " + xhr.responseText);
-            }
-
-        })
-
-    })
+    $.ajax({
+        method: "post",
+        url: `https://wishlist-backend-p49k.onrender.com/user/login`,
+        data: { email: mail, password: password },
+        success: (userDetails) => {
+            $.cookie("userMail", mail);
+            localStorage.setItem("user_id", userDetails._id);
+            LoadDashboard();
+        },
+        error: (xhr) => {
+            alert("Login failed: " + xhr.responseText);
+        }
+    });
+});
 
 
 
