@@ -108,7 +108,8 @@ $(document).on("click", "#btnLogin", () => {
     $.ajax({
         method: "post",
         url: `https://wishlist-backend-p49k.onrender.com/user/login`,
-        data: { email: mail, password: password },
+        contentType: "application/json",
+        data: JSON.stringify({ email: mail, password: password }),
         success: (userDetails) => {
             $.cookie("userMail", mail);
             localStorage.setItem("user_id", userDetails._id);
