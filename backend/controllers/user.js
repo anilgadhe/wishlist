@@ -1,7 +1,8 @@
 const User = require("../modules/user");
+const bcrypt = require("bcrypt")
 
 // Register User
- const registerUserOnPost = async(req, res)=> {
+const registerUserOnPost = async (req, res) => {
     const { user_name, password, mobile, email } = req.body;
 
     try {
@@ -10,9 +11,10 @@ const User = require("../modules/user");
             return res.status(400).json({ message: "User already exists" });
         }
 
+        let hashedPassword = await bcrypt.hash(password, 10);
         const newUser = new User({
             user_name,
-            password,  
+            password: hashedPassword,
             email,
             mobile
         });
@@ -30,6 +32,7 @@ const User = require("../modules/user");
 const loginUser = async (req, res) => {
     const { email, password } = req.body;
 
+
     if (!email || !password) {
         return res.status(400).json({ message: "Email and password required" });
     }
@@ -41,11 +44,13 @@ const loginUser = async (req, res) => {
         }
 
         // plain comparison
-        if (password !== user.password) {
+        const isMatch = await bcrypt.compare(password, user.password);
+        if (!isMatch) {
             return res.status(401).json({ message: "Invalid password" });
         }
 
         res.status(200).json(user);
+
 
     } catch (error) {
         console.error(error);
